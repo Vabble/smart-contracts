@@ -1,4 +1,5 @@
 # smart-contracts
+# Swap
 Requirements:
 
 - The contract should allow for the exchange of the old VAB tokens to the new VAB tokens.
@@ -12,3 +13,9 @@ Requirements:
 
 Old VAB MultiChain Address: 0xed28B1890fBB4aA9ded528c1034fED278ff68f5d
 New VAB Address: 0xf27BeDc0C8a29DF0c4F91493EBa24814fF04D504
+
+# Ethereum <=> Polygon Bridge
+- Document 
+https://wiki.polygon.technology/docs/pos/design/bridge/l1-l2-communication/fx-portal/#do-i-need-a-custom-fxtunnel-implementation-
+- Example
+https://github.com/0xPolygon/fx-portal/tree/main/contracts/examples/erc20-transfer

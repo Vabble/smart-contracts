@@ -1,3 +1,4 @@
+===================== Swap =========================
 // 2023-08-02 Polygon mumbai
 VABTokenSwap (0xD46703dC21f717ef5Cd2fb44c849037425ABDcde)
 
@@ -10,3 +11,31 @@ VABTokenSwap (0xc38a372E1604F9c28b23524848048e1e0dc1b84f)
 
 oldVAB: "0xed28b1890fbb4aa9ded528c1034fed278ff68f5d",
 newVAB: "0xf27BeDc0C8a29DF0c4F91493EBa24814fF04D504",
+
+
+===================== Bridge =========================
+=> 2023-09-26
+FxERC20RootTunnel (0xEf1d5C1D8b7590F4D6E97c34095CB9A7db1Cd92D)  // goerli
+FxERC20ChildTunnel (0x450256da17aA67030652ADF9C617437B4B4D6900) // mumbai
+
+child token: 0x2823005CaB120c67C849D75d8D905908Db96D182 
+
+mapToken() : 24 mins
+deposit()  : < 30 mins
+withdraw() : 30 ~ 180 mins
+
+
+test vab: "0x482a493EA47903a571b20E35B770aFfE06600a3D", // goerli
+Auditor wallet address: 0xb10bcC8B508174c761CFB1E7143bFE37c4fBC3a1
+
+
+=> Generate Proof API                
+https://proof-generator.polygon.technology/api/v1/mumbai/exit-payload/withdraw-tx-hash?eventSignature=SEND_MESSAGE_EVENT_SIG
+Run receiveMessage() with result from API response and Get token back
+
+API Example:
+https://proof-generator.polygon.technology/api/v1/mumbai/exit-payload/0x4756b76a9611cffee3d2eb645819e988c34615621ea256f818ab788d81e1f838?eventSignature=0x8c5261668696ce22758910d05bab8f186d6eb247ceac2af2e82c7dc17669b036
+
+https://proof-generator.polygon.technology/api/v1/mumbai/exit-payload/0x06e1f01a5ac87d9b54d684cbe44a37e2c2805c0dd9657583a1c05127fd1d4532?eventSignature=0x8c5261668696ce22758910d05bab8f186d6eb247ceac2af2e82c7dc17669b036
+
+https://proof-generator.polygon.technology/api/v1/mumbai/exit-payload/0xba2960d5815a45852f39c341ab51852adc661b9fd4194c2174d5d2a259ed6f96?eventSignature=0x8c5261668696ce22758910d05bab8f186d6eb247ceac2af2e82c7dc17669b036

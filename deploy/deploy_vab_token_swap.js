@@ -4,6 +4,8 @@ module.exports = async function ({ ethers, getNamedAccounts, deployments, getCha
 
   const { CONFIG } = require('../scripts/utils');
 
+  return
+  
   const deployContract = await deploy('VABTokenSwap', {
     from: deployer,
     args: [
