@@ -5,28 +5,28 @@ module.exports = async function ({ ethers, getNamedAccounts, deployments, getCha
 
   const network = await ethers.provider.getNetwork();
   const chainId = network.chainId;
-	console.log("Chain ID: ", chainId);
-
+	
   if(chainId == 1) {
     // Ethereum Mainnet
     this.fxRoot = config.mainnet.fxRoot;
     this.checkpointManager = config.mainnet.checkpointManager;
-    this.fxERC20Token = config.mainnet.rootFxERC20;
   } else if(chainId == 5) {
     // Goerli Testnet
     this.fxRoot = config.testnet.fxRoot;
     this.checkpointManager = config.testnet.checkpointManager;    
-    this.fxERC20Token = config.testnet.rootFxERC20;
   } else {
     return
   }
+
+  const FxERC20 = await deployments.get('FxERC20'); 
+  console.log("Root Deploy: ", chainId, FxERC20.address);
 
   const deployContract = await deploy('FxERC20RootTunnel', {
     from: deployer,
     args: [
       this.checkpointManager, 
       this.fxRoot, 
-      this.fxERC20Token
+      FxERC20.address
     ],
     log: true,
     deterministicDeployment: false,

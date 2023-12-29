@@ -5,25 +5,25 @@ module.exports = async function ({ ethers, getNamedAccounts, deployments, getCha
 
   const network = await ethers.provider.getNetwork();
   const chainId = network.chainId;
-	console.log("Chain ID: ", chainId);
-
+	
   if(chainId == 137) {
     // Polygon Mainnet
-    this.fxChild = config.mainnet.fxChild;
-    this.fxERC20Token = config.mainnet.fxERC20;
+    this.fxChild = config.mainnet.fxChild;   
   } else if(chainId == 80001) {
     // Mumbai Testnet
-    this.fxChild = config.testnet.fxChild;
-    this.fxERC20Token = config.testnet.fxERC20;
+    this.fxChild = config.testnet.fxChild;    
   } else {
     return
   }
+
+  const FxERC20 = await deployments.get('FxERC20'); 
+  console.log("Root Deploy: ", chainId, FxERC20.address);
 
   const deployContract = await deploy('FxERC20ChildTunnel', {
     from: deployer,
     args: [
       this.fxChild, 
-      this.fxERC20Token
+      FxERC20.address
     ],
     log: true,
     deterministicDeployment: false,
