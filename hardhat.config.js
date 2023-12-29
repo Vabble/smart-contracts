@@ -8,6 +8,9 @@ require("hardhat-contract-sizer");
 require("hardhat-gas-reporter")
 require('dotenv').config();
 
+
+const { NETWORK } = require('./scripts/utils');
+
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
   const accounts = await hre.ethers.getSigners();
 
@@ -165,9 +168,10 @@ module.exports = {
     },
   },
   etherscan: {
+    apiKey: (NETWORK == 'Goerli' || NETWORK == 'Ethereum') ? etherScan_api_key : polyScan_api_key
     // apiKey: etherScan_api_key
-    apiKey: polyScan_api_key
-    // apiKey: bscScan_api_key        
+    // apiKey: bscScan_api_key    
+    // apiKey: polyScan_api_key
     // apiKey: avaxScan_api_key 
   },
   paths: {
