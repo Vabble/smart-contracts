@@ -96,7 +96,7 @@ contract FxERC20RootTunnel is FxBaseRootTunnel, Create2 {
             (address, address, address, uint256)
         );
         // validate mapping for root to child
-        require(rootToChildTokens[rootToken] == childToken, "FxERC20RootTunnel: INVALID_MAPPING_ON_EXIT_PROCESSOR");
+        require(rootToChildTokens[rootToken] == childToken, "FxERC20RootTunnel: INVALID_MAPPING_ON_EXIT");
 
         // transfer from tokens to
         IERC20(rootToken).safeTransfer(to, amount);

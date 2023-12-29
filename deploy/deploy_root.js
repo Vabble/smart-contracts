@@ -1,20 +1,22 @@
 module.exports = async function ({ ethers, getNamedAccounts, deployments, getChainId }) {
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
-  const { NETWORK, config } = require('../scripts/utils');
+  const { config } = require('../scripts/utils');
 
-  if(NETWORK == 'Ethereum') {
+  const network = await ethers.provider.getNetwork();
+  const chainId = network.chainId;
+	console.log("Chain ID: ", chainId);
+
+  if(chainId == 1) {
     // Ethereum Mainnet
     this.fxRoot = config.mainnet.fxRoot;
     this.checkpointManager = config.mainnet.checkpointManager;
-    // this.rootFxERC20 = config.mainnet.rootFxERC20;
-    this.fxERC20Token = config.mainnet.fxERC20;
-  } else if(NETWORK == 'Goerli') {
+    this.fxERC20Token = config.mainnet.rootFxERC20;
+  } else if(chainId == 5) {
     // Goerli Testnet
     this.fxRoot = config.testnet.fxRoot;
-    this.checkpointManager = config.testnet.checkpointManager;
-    // this.rootFxERC20 = config.testnet.rootFxERC20;
-    this.fxERC20Token = config.testnet.fxERC20;
+    this.checkpointManager = config.testnet.checkpointManager;    
+    this.fxERC20Token = config.testnet.rootFxERC20;
   } else {
     return
   }

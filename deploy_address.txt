@@ -18,14 +18,15 @@ newVAB: "0xf27BeDc0C8a29DF0c4F91493EBa24814fF04D504",
 FxERC20RootTunnel (0xEf1d5C1D8b7590F4D6E97c34095CB9A7db1Cd92D)  // goerli
 FxERC20ChildTunnel (0x450256da17aA67030652ADF9C617437B4B4D6900) // mumbai
 
-child token: 0x2823005CaB120c67C849D75d8D905908Db96D182 
+root token: "0x482a493EA47903a571b20E35B770aFfE06600a3D", // goerli
+child token: 0x2823005CaB120c67C849D75d8D905908Db96D182 , // VAB
 
 mapToken() : 24 mins
 deposit()  : < 30 mins
 withdraw() : 30 ~ 180 mins
 
 
-test vab: "0x482a493EA47903a571b20E35B770aFfE06600a3D", // goerli
+
 Auditor wallet address: 0xb10bcC8B508174c761CFB1E7143bFE37c4fBC3a1
 
 
@@ -47,6 +48,27 @@ child token: 0xe24886e7054dc7e4da55a50262462d6fa2f7b7f0 // mumbai
 
 Auditor wallet address: 0xb10bcC8B508174c761CFB1E7143bFE37c4fBC3a1
 
+
+
+=> 2023-12-29 - 02
+FxERC20RootTunnel (0xC8c82c310292Eea875bDCd8a7e1B8b0635B4e214)  // goerli
+FxERC20ChildTunnel (0x60e83212C7903233968d4De2736EA605f444d25F) // mumbai
+
+root token: 0x482a493EA47903a571b20E35B770aFfE06600a3D // goerli
+child token: 0x4Ff63Ab0105101bCa161953eF16991A82009A28A // mumbai
+
+Auditor wallet address: 0xb10bcC8B508174c761CFB1E7143bFE37c4fBC3a1
+
+=> 2023-12-29 - 03
+FXERC20: 
+0x105230BC885bbbAf94716811E31abD2727a4E424 // goerli
+0xd2158E50DF638e820F9DBC213A45B532B11623a7 // mumbai
+
+FxERC20RootTunnel (0x1c94369452d855B20c1966293dCa9C7dCa648965)  // goerli
+FxERC20ChildTunnel (0x3687DD9bd2CD3e905D89Cfa05CC2b1eE077E3213) // mumbai
+
+root token: 0x482a493EA47903a571b20E35B770aFfE06600a3D // goerli
+child token: 0xf2fbd01868aa5f4b11b6df076ac1576a07a11b9d // mumbai
 
 => Generate Proof API                
 https://proof-generator.polygon.technology/api/v1/mumbai/exit-payload/withdraw-tx-hash?eventSignature=SEND_MESSAGE_EVENT_SIG

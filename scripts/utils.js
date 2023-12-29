@@ -1,11 +1,6 @@
 const ethers = require('ethers');  
 const { BigNumber } = ethers;
 
-// const NETWORK = 'Polygon';
-const NETWORK = 'Mumbai';
-// const NETWORK = 'Ethereum';
-// const NETWORK = 'Goerli';
-
 const ZERO_ADDRESS = ethers.constants.AddressZero;
 const CONFIG = {
   oldVAB: "0xed28b1890fbb4aa9ded528c1034fed278ff68f5d",
@@ -24,8 +19,8 @@ const config = {
     fxRoot: "0x3d1d3E34f7fB6D26245E6640E1c50710eFFf15bA", // goerli
     fxChild: "0xCf73231F28B7331BBe3124B907840A94851f9f11", // mumbai
     checkpointManager: "0x2890bA17EfE978480615e330ecB65333b880928e", // goerli
-    fxERC20: "0x62757EB8B0d25661B0D7CE4253c318E4Fb3b1a1e", // mumbai
-    rootFxERC20: "0x6dd0F2215Ce78fED85BC5d48C8eA7199201f2F64", // goerli
+    fxERC20: "0xd2158E50DF638e820F9DBC213A45B532B11623a7", // mumbai
+    rootFxERC20: "0x105230BC885bbbAf94716811E31abD2727a4E424", // goerli
     vab: "0x482a493EA47903a571b20E35B770aFfE06600a3D", // goerli
   }
 }
@@ -35,8 +30,7 @@ function getBigNumber(amount, decimals = 18) {
   return BigNumber.from(amount).mul(BigNumber.from(10).pow(decimals));
 }
 
-module.exports = {
-  NETWORK,
+module.exports = {  
   ZERO_ADDRESS,
   CONFIG,
   getBigNumber,

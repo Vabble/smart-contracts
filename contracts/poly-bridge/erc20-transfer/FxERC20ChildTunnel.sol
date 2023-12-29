@@ -21,7 +21,7 @@ contract FxERC20ChildTunnel is FxBaseChildTunnel, Create2 {
     // slither-disable-next-line missing-zero-check
     constructor(address _fxChild, address _tokenTemplate) FxBaseChildTunnel(_fxChild) {
         tokenTemplate = _tokenTemplate;
-        require(_isContract(_tokenTemplate), "Token template is not contract, Error");
+        require(_isContract(_tokenTemplate), "Token template is not contract");
     }
 
     function withdraw(address childToken, uint256 amount) public {
