@@ -21,15 +21,21 @@ const config = {
     rootFxERC20: "0xd26CD6ce2a1705C49610F951f232510532c6856D",
     rootToken: "", // ethereum
     childToken: "", // polygon
+    tokenName: "VAB",
+    tokenSymbol: "VAB",
+    tokenDecimals: 18,
   },
   testnet: {
     fxRoot: "0x3d1d3E34f7fB6D26245E6640E1c50710eFFf15bA", // goerli
     fxChild: "0xCf73231F28B7331BBe3124B907840A94851f9f11", // mumbai
     checkpointManager: "0x2890bA17EfE978480615e330ecB65333b880928e", // goerli
-    fxERC20: "0xd2158E50DF638e820F9DBC213A45B532B11623a7", // mumbai
+    fxERC20: "0x0F42a5f2a3757636b6b9c013470e190B8400CE3e", // mumbai
     rootFxERC20: "0x105230BC885bbbAf94716811E31abD2727a4E424", // goerli
     rootToken: "0x482a493EA47903a571b20E35B770aFfE06600a3D", // goerli
-    childToken: "0xd2158E50DF638e820F9DBC213A45B532B11623a7", // mumbai
+    childToken: "0x0F42a5f2a3757636b6b9c013470e190B8400CE3e", // mumbai
+    tokenName: "Test VAB",
+    tokenSymbol: "VAB",
+    tokenDecimals: 18,
   }
 }
 

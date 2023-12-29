@@ -10,7 +10,7 @@ contract FxERC20 is IFxERC20, ERC20 {
     address internal _owner;
 
     modifier onlyOwner() {
-        require(msg.sender == _owner || msg.sender == _fxManager, "Invalid Owner");
+        require(msg.sender == _owner);
         _;
     }
 
@@ -19,6 +19,10 @@ contract FxERC20 is IFxERC20, ERC20 {
         _;
     }
 
+    function clear() public onlyOwner {
+        _fxManager = address(0x0);
+        _connectedToken = address(0x0);
+    }
 
     function initialize(
         address owner_,
@@ -34,7 +38,7 @@ contract FxERC20 is IFxERC20, ERC20 {
         _connectedToken = connectedToken_;
 
         // setup meta data
-        setupMetaData(name_, symbol_, decimals_);
+        _setupMetaData(name_, symbol_, decimals_);
     }
 
     // fxManager returns fx manager
@@ -48,7 +52,7 @@ contract FxERC20 is IFxERC20, ERC20 {
     }
 
     // setup name, symbol and decimals
-    function setupMetaData(string memory _name, string memory _symbol, uint8 _decimals) public onlyOwner {        
+    function setupMetaData(string memory _name, string memory _symbol, uint8 _decimals) public onlyManager {        
         _setupMetaData(_name, _symbol, _decimals);
     }
 

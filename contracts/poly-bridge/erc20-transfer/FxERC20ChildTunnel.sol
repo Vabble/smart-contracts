@@ -22,11 +22,26 @@ contract FxERC20ChildTunnel is FxBaseChildTunnel, Create2 {
     constructor(
         address _fxChild, address _tokenTemplate,
         address _rootToken,
-        address _childToken
+        address _childToken,
+        string memory _name, 
+        string memory _symbol, 
+        uint8 _decimals
     ) FxBaseChildTunnel(_fxChild) {
         tokenTemplate = _tokenTemplate;
         rootToChildToken[_rootToken] = _childToken;
         require(_isContract(_tokenTemplate), "Token template is not contract, error");
+
+        root_deployer = msg.sender;
+
+        // slither-disable-next-line reentrancy-no-eth
+        IFxERC20(_childToken).initialize(
+            msg.sender, // set owner of this token
+            address(this),            
+            _rootToken,
+            _name,
+            _symbol,
+            _decimals
+        );
     }
 
     function withdraw(address childToken, uint256 amount) public {
