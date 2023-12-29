@@ -7,8 +7,21 @@ import {IFxERC20} from "./IFxERC20.sol";
 contract FxERC20 is IFxERC20, ERC20 {
     address internal _fxManager;
     address internal _connectedToken;
+    address internal _owner;
+
+    modifier onlyOwner() {
+        require(msg.sender == _owner || msg.sender == _fxManager, "Invalid Owner");
+        _;
+    }
+
+    modifier onlyManager() {
+        require(msg.sender == _fxManager, "Invalid Manager");
+        _;
+    }
+
 
     function initialize(
+        address owner_,
         address fxManager_,
         address connectedToken_,
         string memory name_,
@@ -16,6 +29,7 @@ contract FxERC20 is IFxERC20, ERC20 {
         uint8 decimals_
     ) public override {
         require(_fxManager == address(0x0) && _connectedToken == address(0x0), "Token is already initialized");
+        _owner = owner_;
         _fxManager = fxManager_;
         _connectedToken = connectedToken_;
 
@@ -34,18 +48,15 @@ contract FxERC20 is IFxERC20, ERC20 {
     }
 
     // setup name, symbol and decimals
-    function setupMetaData(string memory _name, string memory _symbol, uint8 _decimals) public {
-        require(msg.sender == _fxManager, "Invalid sender");
+    function setupMetaData(string memory _name, string memory _symbol, uint8 _decimals) public onlyOwner {        
         _setupMetaData(_name, _symbol, _decimals);
     }
 
-    function mint(address user, uint256 amount) public override {
-        require(msg.sender == _fxManager, "Invalid sender");
+    function mint(address user, uint256 amount) public override onlyManager {
         _mint(user, amount);
     }
 
-    function burn(address user, uint256 amount) public override {
-        require(msg.sender == _fxManager, "Invalid sender");
+    function burn(address user, uint256 amount) public override onlyManager {
         _burn(user, amount);
     }
 }

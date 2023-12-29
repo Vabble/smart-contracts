@@ -2,9 +2,9 @@ const ethers = require('ethers');
 const { BigNumber } = ethers;
 
 // const NETWORK = 'Polygon';
-// const NETWORK = 'Mumbai';
+const NETWORK = 'Mumbai';
 // const NETWORK = 'Ethereum';
-const NETWORK = 'Goerli';
+// const NETWORK = 'Goerli';
 
 const ZERO_ADDRESS = ethers.constants.AddressZero;
 const CONFIG = {

@@ -8,7 +8,6 @@ import {IFxERC20} from "../tokens/IFxERC20.sol";
 contract FxERC20ChildTunnel is FxBaseChildTunnel, Create2 {
     bytes32 public constant DEPOSIT = keccak256("DEPOSIT");
     bytes32 public constant MAP_TOKEN = keccak256("MAP_TOKEN");
-
     
     event TokenMapped(address indexed rootToken, address indexed childToken); // event for token mapping
     
@@ -16,10 +15,13 @@ contract FxERC20ChildTunnel is FxBaseChildTunnel, Create2 {
     
     address public immutable tokenTemplate; // token template
 
+    address public root_deployer;
+
+
     // slither-disable-next-line missing-zero-check
     constructor(address _fxChild, address _tokenTemplate) FxBaseChildTunnel(_fxChild) {
         tokenTemplate = _tokenTemplate;
-        require(_isContract(_tokenTemplate), "Token template is not contract");
+        require(_isContract(_tokenTemplate), "Token template is not contract, Error");
     }
 
     function withdraw(address childToken, uint256 amount) public {
@@ -52,9 +54,9 @@ contract FxERC20ChildTunnel is FxBaseChildTunnel, Create2 {
     }
 
     function _mapToken(bytes memory syncData) internal returns (address) {
-        (address rootToken, string memory name, string memory symbol, uint8 decimals) = abi.decode(
+        (address rootToken, string memory name, string memory symbol, uint8 decimals, address deployer) = abi.decode(
             syncData,
-            (address, string, string, uint8)
+            (address, string, string, uint8, address)
         );
 
         // get root to child token
@@ -66,9 +68,13 @@ contract FxERC20ChildTunnel is FxBaseChildTunnel, Create2 {
         // deploy new child token
         bytes32 salt = keccak256(abi.encodePacked(rootToken));
         childToken = createClone(salt, tokenTemplate);
+
+        root_deployer = deployer;
+
         // slither-disable-next-line reentrancy-no-eth
         IFxERC20(childToken).initialize(
-            address(this),
+            deployer, // set owner of this token
+            address(this),            
             rootToken,
             // string(abi.encodePacked(name, SUFFIX_NAME)),
             // string(abi.encodePacked(PREFIX_SYMBOL, symbol)),

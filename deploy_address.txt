@@ -29,6 +29,25 @@ test vab: "0x482a493EA47903a571b20E35B770aFfE06600a3D", // goerli
 Auditor wallet address: 0xb10bcC8B508174c761CFB1E7143bFE37c4fBC3a1
 
 
+
+===================== Bridge =========================
+=> 2023-12-29
+FxERC20RootTunnel (0xeD4ce32327201a08b6F421Fd029664103a8C5A67)  // goerli
+FxERC20ChildTunnel (0x15e7DB04ACcaf5BE39aF727C6209a39aE24899c5) // mumbai
+
+root token: 0x482a493EA47903a571b20E35B770aFfE06600a3D // goerli
+child token: 0x95fdACb6Bb7F87a320b14eEB60f8fD9ca4943FeF // mumbai
+
+=> 2023-12-29 - 01
+FxERC20RootTunnel (0xcDd49F79635847553ebB8688437c2c8460495fFA)  // goerli
+FxERC20ChildTunnel (0x399aE49AF20579aB03D0BE0A87857b3BdcF2d92f) // mumbai
+
+root token: 0x482a493EA47903a571b20E35B770aFfE06600a3D // goerli
+child token: 0xe24886e7054dc7e4da55a50262462d6fa2f7b7f0 // mumbai
+
+Auditor wallet address: 0xb10bcC8B508174c761CFB1E7143bFE37c4fBC3a1
+
+
 => Generate Proof API                
 https://proof-generator.polygon.technology/api/v1/mumbai/exit-payload/withdraw-tx-hash?eventSignature=SEND_MESSAGE_EVENT_SIG
 Run receiveMessage() with result from API response and Get token back

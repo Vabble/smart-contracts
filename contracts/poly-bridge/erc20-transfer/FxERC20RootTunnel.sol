@@ -29,6 +29,9 @@ contract FxERC20RootTunnel is FxBaseRootTunnel, Create2 {
     mapping(address => address) public rootToChildTokens;
     bytes32 public immutable childTokenTemplateCodeHash;
 
+    address public deployer;
+
+
     constructor(
         address _checkpointManager,
         address _fxRoot,
@@ -36,6 +39,7 @@ contract FxERC20RootTunnel is FxBaseRootTunnel, Create2 {
     ) FxBaseRootTunnel(_checkpointManager, _fxRoot) {
         // compute child token template code hash
         childTokenTemplateCodeHash = keccak256(minimalProxyCreationCode(_fxERC20Token));
+        deployer = msg.sender;
     }
 
     /**
@@ -53,7 +57,7 @@ contract FxERC20RootTunnel is FxBaseRootTunnel, Create2 {
         uint8 decimals = rootTokenContract.decimals();
 
         // MAP_TOKEN, encode(rootToken, name, symbol, decimals)
-        bytes memory message = abi.encode(MAP_TOKEN, abi.encode(rootToken, name, symbol, decimals));
+        bytes memory message = abi.encode(MAP_TOKEN, abi.encode(rootToken, name, symbol, decimals, deployer));
         // slither-disable-next-line reentrancy-no-eth
         _sendMessageToChild(message);
 
@@ -92,7 +96,7 @@ contract FxERC20RootTunnel is FxBaseRootTunnel, Create2 {
             (address, address, address, uint256)
         );
         // validate mapping for root to child
-        require(rootToChildTokens[rootToken] == childToken, "FxERC20RootTunnel: INVALID_MAPPING_ON_EXIT");
+        require(rootToChildTokens[rootToken] == childToken, "FxERC20RootTunnel: INVALID_MAPPING_ON_EXIT_PROCESSOR");
 
         // transfer from tokens to
         IERC20(rootToken).safeTransfer(to, amount);

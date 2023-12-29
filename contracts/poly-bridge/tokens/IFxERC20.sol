@@ -9,6 +9,7 @@ interface IFxERC20 is IERC20 {
     function connectedToken() external returns (address);
 
     function initialize(
+        address owner,
         address _fxManager,
         address _connectedToken,
         string memory _name,
