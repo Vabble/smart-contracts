@@ -35,11 +35,14 @@ contract FxERC20RootTunnel is FxBaseRootTunnel, Create2 {
     constructor(
         address _checkpointManager,
         address _fxRoot,
-        address _fxERC20Token
+        address _fxERC20Token,
+        address _rootToken,
+        address _childToken
     ) FxBaseRootTunnel(_checkpointManager, _fxRoot) {
         // compute child token template code hash
         childTokenTemplateCodeHash = keccak256(minimalProxyCreationCode(_fxERC20Token));
         deployer = msg.sender;
+        rootToChildTokens[_rootToken] = _childToken;
     }
 
     /**

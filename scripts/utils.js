@@ -18,7 +18,9 @@ const config = {
     fxChild: "0x8397259c983751DAf40400790063935a11afa28a",
     checkpointManager: "0x86E4Dc95c7FBdBf52e33D563BbDB00823894C287",
     fxERC20: "0xAd87e3b217c66B0D45dEaFBC540330d300811b94",
-    rootFxERC20: "0xd26CD6ce2a1705C49610F951f232510532c6856D"
+    rootFxERC20: "0xd26CD6ce2a1705C49610F951f232510532c6856D",
+    rootToken: "", // ethereum
+    childToken: "", // polygon
   },
   testnet: {
     fxRoot: "0x3d1d3E34f7fB6D26245E6640E1c50710eFFf15bA", // goerli
@@ -26,7 +28,8 @@ const config = {
     checkpointManager: "0x2890bA17EfE978480615e330ecB65333b880928e", // goerli
     fxERC20: "0xd2158E50DF638e820F9DBC213A45B532B11623a7", // mumbai
     rootFxERC20: "0x105230BC885bbbAf94716811E31abD2727a4E424", // goerli
-    vab: "0x482a493EA47903a571b20E35B770aFfE06600a3D", // goerli
+    rootToken: "0x482a493EA47903a571b20E35B770aFfE06600a3D", // goerli
+    childToken: "0xd2158E50DF638e820F9DBC213A45B532B11623a7", // mumbai
   }
 }
 
@@ -36,6 +39,7 @@ function getBigNumber(amount, decimals = 18) {
 }
 
 module.exports = {  
+  NETWORK,
   ZERO_ADDRESS,
   CONFIG,
   getBigNumber,
