@@ -82,6 +82,7 @@ Change Wallet Private Key(MNEMONIC) in .env
     1.4 npm run mumbai:verify
     1.5 save Deployed FXERC20's address and import it on wallet in Mumbai Network
     1.6 update testnet's fxERC20, childToken in utils.js
+    1.7 Create Pair in uniswap factory on Mumbai
 2. Deploy FxERC20RootTunnel to Geoerli
     2.1 uncomment deploy_child
     2.2 change NETWORK to Goerli in utils.js
@@ -121,6 +122,7 @@ Change Wallet Private Key(MNEMONIC) in .env
     1.4 npm run matic:verify
     1.5 save Deployed FXERC20's address and import it on wallet in Polygon Network
     1.6 update mainnet's fxERC20, childToken in utils.js
+    1.7 Create Pair in uniswap factory on Polygon
 2. Deploy FxERC20RootTunnel to Ethereum
     2.1 uncomment deploy_child
     2.2 change NETWORK to Ethereum in utils.js
