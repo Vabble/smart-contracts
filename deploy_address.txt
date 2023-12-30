@@ -73,6 +73,8 @@ https://proof-generator.polygon.technology/api/v1/mumbai/exit-payload/0x06e1f01a
 https://proof-generator.polygon.technology/api/v1/mumbai/exit-payload/0xba2960d5815a45852f39c341ab51852adc661b9fd4194c2174d5d2a259ed6f96?eventSignature=0x8c5261668696ce22758910d05bab8f186d6eb247ceac2af2e82c7dc17669b036
 
 ======================== Deploy Goerli <-> Mumbai Bridge Steps ===========================================
+Change Wallet Private Key(MNEMONIC) in .env
+
 1. Deploy FXERC20
     1.1 comment deploy_child
     1.2 change NETWORK to 'Mumbai' in utils.js
