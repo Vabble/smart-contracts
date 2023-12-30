@@ -29,10 +29,10 @@ const config = {
     fxRoot: "0x3d1d3E34f7fB6D26245E6640E1c50710eFFf15bA", // goerli
     fxChild: "0xCf73231F28B7331BBe3124B907840A94851f9f11", // mumbai
     checkpointManager: "0x2890bA17EfE978480615e330ecB65333b880928e", // goerli
-    fxERC20: "0xFF84f94e95EEe9f1BF6A22b20BB44796626dA653", // mumbai
+    fxERC20: "0x793A08C343F33b4e93Fa5DcC3Dc3292e19Dcc510", // mumbai
     rootFxERC20: "0x105230BC885bbbAf94716811E31abD2727a4E424", // goerli
     rootToken: "0x482a493EA47903a571b20E35B770aFfE06600a3D", // goerli
-    childToken: "0xFF84f94e95EEe9f1BF6A22b20BB44796626dA653", // mumbai
+    childToken: "0x793A08C343F33b4e93Fa5DcC3Dc3292e19Dcc510", // mumbai
     tokenName: "Test VAB",
     tokenSymbol: "VAB",
     tokenDecimals: 18,
