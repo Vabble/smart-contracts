@@ -26,9 +26,6 @@ module.exports = async function ({ ethers, getNamedAccounts, deployments, getCha
     return
   }
 
-  const FxERC20 = await deployments.get('FxERC20'); 
-  console.log("Root Deploy: ", chainId);
-
   const deployContract = await deploy('FxERC20RootTunnel', {
     from: deployer,
     args: [

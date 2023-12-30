@@ -5,7 +5,7 @@ module.exports = async function ({ ethers, getNamedAccounts, deployments, getCha
     const network = await ethers.provider.getNetwork();
     const chainId = network.chainId;
   
-    if (chainId == 1 || chainId == 137) {
+    if (chainId == 1 || chainId == 5) { // ethereum or goerli
       return
     }
     

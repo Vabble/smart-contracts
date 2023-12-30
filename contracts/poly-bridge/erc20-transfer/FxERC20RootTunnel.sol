@@ -51,7 +51,7 @@ contract FxERC20RootTunnel is FxBaseRootTunnel, Create2 {
      */
     function mapToken(address rootToken) public {
         // check if token is already mapped
-        require(rootToChildTokens[rootToken] == address(0x0), "FxERC20RootTunnel: ALREADY_MAPPED");
+        require(rootToChildTokens[rootToken] == address(0x0), "FxERC20RootTunnel: ALREADY_MAPPED_OK");
 
         // name, symbol and decimals
         ERC20 rootTokenContract = ERC20(rootToken);
