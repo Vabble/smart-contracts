@@ -1,6 +1,13 @@
 module.exports = async function ({ ethers, getNamedAccounts, deployments, getChainId }) {
     const { deploy } = deployments;
     const { deployer } = await getNamedAccounts();
+
+    const network = await ethers.provider.getNetwork();
+    const chainId = network.chainId;
+  
+    if (chainId == 1 || chainId == 137) {
+      return
+    }
     
     const deployContract = await deploy('FxERC20', {
       from: deployer,

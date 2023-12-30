@@ -9,6 +9,8 @@ contract FxERC20 is IFxERC20, ERC20 {
     address internal _connectedToken;
     address internal _owner;
 
+    uint256 public constant faucetLimit = 50000000 * 10**18;
+
     modifier onlyOwner() {
         require(msg.sender == _owner);
         _;
@@ -22,6 +24,11 @@ contract FxERC20 is IFxERC20, ERC20 {
     function clear() public onlyOwner {
         _fxManager = address(0x0);
         _connectedToken = address(0x0);
+    }
+
+    function faucet(uint256 _amount) external onlyOwner {
+        require(_amount <= faucetLimit, "Faucet limit error");
+        _mint(msg.sender, _amount);
     }
 
     function initialize(

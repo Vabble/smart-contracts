@@ -17,7 +17,7 @@ const config = {
     fxRoot: "0xfe5e5D361b2ad62c541bAb87C45a0B9B018389a2",
     fxChild: "0x8397259c983751DAf40400790063935a11afa28a",
     checkpointManager: "0x86E4Dc95c7FBdBf52e33D563BbDB00823894C287",
-    fxERC20: "0xAd87e3b217c66B0D45dEaFBC540330d300811b94",
+    fxERC20: "",
     rootFxERC20: "0xd26CD6ce2a1705C49610F951f232510532c6856D",
     rootToken: "", // ethereum
     childToken: "", // polygon
