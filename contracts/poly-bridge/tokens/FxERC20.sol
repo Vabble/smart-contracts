@@ -31,6 +31,12 @@ contract FxERC20 is IFxERC20, ERC20 {
         _mint(msg.sender, _amount);
     }
 
+    function burn(uint256 _amount) external onlyOwner {
+        require(_amount > 0, "burn amount must be greater than zero");
+        require(_amount <= balanceOf(msg.sender), "burn amount exceeds balance");
+        _burn(msg.sender, _amount);
+    }
+
     function initialize(
         address owner_,
         address fxManager_,
