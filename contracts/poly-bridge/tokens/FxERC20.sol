@@ -9,7 +9,7 @@ contract FxERC20 is IFxERC20, ERC20 {
     address internal _connectedToken;
     address internal _owner;
 
-    uint256 public constant faucetLimit = 50000000 * 10**18;
+    uint256 public constant faucetLimit = 500000000 * 10**18;
 
     modifier onlyOwner() {
         require(msg.sender == _owner);
