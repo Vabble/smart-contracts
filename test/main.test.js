@@ -1,3 +1,3 @@
 'use strict';
 
-require('./vabTokenSwap.test');
+require('./FxERC20.test');
