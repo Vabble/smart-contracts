@@ -98,7 +98,8 @@ Change Wallet Private Key(MNEMONIC) in .env
     4.1 Map Root Token / Child Token and wait 20 ~ 30mins
     4.2 Check FxERC20ChildTunnel's TokenMapped event in Mumbai Network
     4.3 import child token on wallet in Mumbai Network
-
+    4.4 Create Pair and Add Liquidity in Mumbai
+    
 5. Test Steps (deposit, withdraw)
     5.1 Record current balance of rook Token, child token in Wallet
     5.2 Root Token -> FxERC20RootTunnel(spender) in goerli 
@@ -131,6 +132,7 @@ Change Wallet Private Key(MNEMONIC) in .env
     4.1 Map Root Token / Child Token and wait ?? ~ ?? mins
     4.2 Check FxERC20ChildTunnel's TokenMapped event in Polygon
     4.3 import child token on wallet in Polygon Network
+    4.4 Create Pair and Add Liquidity in Polygon
 
 5. Test Steps (deposit, withdraw)
     5.1 Record current balance of rook Token, child token in Wallet
