@@ -63,6 +63,8 @@ FxERC20ChildTunnel (0xd00c909dB67D2C64342EfE49F1b7f43D81E9BB5C) // mumbai
 root token: 0x482a493EA47903a571b20E35B770aFfE06600a3D // goerli
 child token: 0x61Ff1D74C20655ef4563b5838B78B551f80F0b32  // mumbai
 
+New Child Token: 0xD1EF0F0b9D046b4F5df3786713B85F5450e62135
+
 Auditor wallet address: 0xb10bcC8B508174c761CFB1E7143bFE37c4fBC3a1
 
 => Generate Proof API                

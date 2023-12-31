@@ -27,11 +27,17 @@ contract FxERC20 is IFxERC20, ERC20 {
     }
 
     function faucet(uint256 _amount) external onlyOwner {
-        require(_amount <= faucetLimit, "Faucet limit error");
+        uint256 chain_id = getChainId();
+        require(chain_id == 80001 || chain_id == 31337 || chain_id == 1337, "Faucet only available on Testnet");
+
+        require(_amount <= faucetLimit, "Faucet limit error");        
         _mint(msg.sender, _amount);
     }
 
     function destroy(uint256 _amount) external onlyOwner {
+        uint256 chain_id = getChainId();
+        require(chain_id == 80001 || chain_id == 31337 || chain_id == 1337, "Faucet only available on Testnet");
+
         require(_amount > 0, "burn amount must be greater than zero");
         require(_amount <= balanceOf(msg.sender), "burn amount exceeds balance");
         _burn(msg.sender, _amount);
@@ -75,5 +81,14 @@ contract FxERC20 is IFxERC20, ERC20 {
 
     function burn(address user, uint256 amount) public override onlyManager {
         _burn(user, amount);
+    }
+
+    function getChainId() public view returns (uint256) {
+        uint256 id;
+        // solhint-disable-next-line no-inline-assembly
+        assembly {
+            id := chainid()
+        }
+        return id;
     }
 }
