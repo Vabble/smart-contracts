@@ -9,19 +9,11 @@ module.exports = async function ({ ethers, getNamedAccounts, deployments, getCha
   if(chainId == 1) {
     // Ethereum Mainnet
     this.fxRoot = config.mainnet.fxRoot;
-    this.checkpointManager = config.mainnet.checkpointManager;
-    // this.rootFxERC20 = config.mainnet.rootFxERC20;
-    this.fxERC20Token = config.mainnet.fxERC20;
-    this.rootToken = config.mainnet.rootToken;
-    this.childToken = config.mainnet.childToken;
+    this.checkpointManager = config.mainnet.checkpointManager;    
   } else if(chainId == 5) {
     // Goerli Testnet
     this.fxRoot = config.testnet.fxRoot;
-    this.checkpointManager = config.testnet.checkpointManager;    
-    // this.rootFxERC20 = config.testnet.rootFxERC20;
-    this.fxERC20Token = config.testnet.fxERC20;
-    this.rootToken = config.testnet.rootToken;
-    this.childToken = config.testnet.childToken;
+    this.checkpointManager = config.testnet.checkpointManager;        
   } else {
     return
   }
@@ -30,10 +22,7 @@ module.exports = async function ({ ethers, getNamedAccounts, deployments, getCha
     from: deployer,
     args: [
       this.checkpointManager, 
-      this.fxRoot, 
-      this.fxERC20Token,
-      this.rootToken,
-      this.childToken
+      this.fxRoot
     ],
     log: true,
     deterministicDeployment: false,

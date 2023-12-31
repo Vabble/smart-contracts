@@ -31,31 +31,6 @@ Auditor wallet address: 0xb10bcC8B508174c761CFB1E7143bFE37c4fBC3a1
 
 
 ===================== Bridge =========================
-=> 2023-12-30 - 01
-FXERC20: 
-0x0F42a5f2a3757636b6b9c013470e190B8400CE3e // mumbai
-
-FxERC20RootTunnel (0xFd6dc52997F6A450f073678981b87A3513aF851f)  // goerli
-FxERC20ChildTunnel (0x67D57ee3281479bbb868f856298F4805d24B476e) // mumbai
-
-root token: 0x482a493EA47903a571b20E35B770aFfE06600a3D // goerli
-child token:  0x0F42a5f2a3757636b6b9c013470e190B8400CE3e // mumbai
-
-Auditor wallet address: 0xb10bcC8B508174c761CFB1E7143bFE37c4fBC3a1
-
-
-=> 2023-12-30 - 02
-FXERC20: 
-0x571C39481c71d72b03278b0FB568658EC477ee82 // mumbai
-
-FxERC20RootTunnel (0xB3DCA9531aA5297F01E9dcA6aB443c49CD13f6a9)  // goerli
-FxERC20ChildTunnel (0x224f9821b5B94573d53e80640df15E55dcB83ea4) // mumbai
-
-root token: 0x482a493EA47903a571b20E35B770aFfE06600a3D // goerli
-child token:  0x571C39481c71d72b03278b0FB568658EC477ee82 // mumbai
-
-Auditor wallet address: 0xb10bcC8B508174c761CFB1E7143bFE37c4fBC3a1
-
 
 => 2023-12-30 - 03
 FXERC20: 
@@ -81,6 +56,14 @@ child token: 0x793A08C343F33b4e93Fa5DcC3Dc3292e19Dcc510  // mumbai
 
 Auditor wallet address: 0xb10bcC8B508174c761CFB1E7143bFE37c4fBC3a1
 
+=> 2023-12-31 - 02
+FxERC20RootTunnel (0xB12bb613627426829eD26780ccadAb4D92B67A86)  // goerli
+FxERC20ChildTunnel (0xd00c909dB67D2C64342EfE49F1b7f43D81E9BB5C) // mumbai
+
+root token: 0x482a493EA47903a571b20E35B770aFfE06600a3D // goerli
+child token: 0x61Ff1D74C20655ef4563b5838B78B551f80F0b32  // mumbai
+
+Auditor wallet address: 0xb10bcC8B508174c761CFB1E7143bFE37c4fBC3a1
 
 => Generate Proof API                
 https://proof-generator.polygon.technology/api/v1/mumbai/exit-payload/withdraw-tx-hash?eventSignature=SEND_MESSAGE_EVENT_SIG
@@ -98,82 +81,67 @@ https://proof-generator.polygon.technology/api/v1/mumbai/exit-payload/0xba2960d5
 ======================== Deploy Goerli <-> Mumbai Bridge Steps ===========================================
 Change Wallet Private Key(MNEMONIC) in .env
 
-1. Deploy FXERC20
-    1.1 comment deploy_child
-    1.2 change NETWORK to 'Mumbai' in utils.js
-    1.3 npm run mumbai:deploy
-    1.4 npm run mumbai:verify
-    1.5 save Deployed FXERC20's address
-    1.6 update testnet's fxERC20, childToken in utils.js - IMPORTANT
-    1.7 Create Pair in uniswap factory on Mumbai    
-2. Deploy FxERC20RootTunnel to Geoerli
-    2.1 uncomment deploy_child
-    2.2 change NETWORK to Goerli in utils.js
-    2.3 Prepare Root Token, Child Token's Name, Symbol, and Decimals
-    2.4 npm run goerli:deploy
-    2.5 npm run goerli:verify
-    2.6 save Deployed FxERC20RootTunnel's address    
-3. Deploy FxERC20ChildTunnel to Mumbai
-    3.1 uncomment deploy_child
-    3.2 change NETWORK to Mumbai in utils.js
-    3.3 npm run mumbai:deploy
-    3.4 npm run mumbai:verify
-    3.5 save Deployed FxERC20ChildTunnel's address
-    3.6 import child token on wallet in Mumbai Network
-4. Setup Bridge
-    4.1 update ChildTunnel of FxERC20RootTunnel in goerli
-    4.2 update RootTunnel of FxERC20ChildTunnel in mumbai
-5. Root Token -> FxERC20RootTunnel(spender) in goerli 
-6. Test Steps
-    6.1 Record current balance of rook Token, child token
-    6.2 deposit in FxERC20RootTunnel
-    6.3 check if the balance of rook token is decreased
-    6.4 Wait 20 ~ 30mins and check the balance of childToken in Wallet in Mumbai
+1. Deploy FxERC20RootTunnel to Geoerli
+    1.1 change NETWORK to Goerli in utils.js
+    1.2 npm run goerli:deploy
+    1.3 npm run goerli:verify
+    1.4 save Deployed FxERC20RootTunnel's address    
+2. Deploy FXERC20 and FxERC20ChildTunnel to Mumbai
+    2.1 change NETWORK to Mumbai in utils.js
+    2.2 npm run mumbai:deploy
+    2.3 npm run mumbai:verify
+    2.4 save Deployed FxERC20ChildTunnel's address and FXERC20 address    
+3. Setup Bridge - (Please don't confuse, this is IMPORTANT step!!!!!)
+    3.1 update ChildTunnel of FxERC20RootTunnel in goerli
+    3.2 update RootTunnel of FxERC20ChildTunnel in mumbai
+4. Mapping Steps
+    4.1 Map Root Token / Child Token and wait 20 ~ 30mins
+    4.2 Check FxERC20ChildTunnel's TokenMapped event in Mumbai Network
+    4.3 import child token on wallet in Mumbai Network
 
-    6.5 Record current balance of rook Token, child token
-    6.6 withdraw from FxERC20ChildTunnel
-    6.7 check if the balance of child token is decreased
-    6.8 Wait 30mins
-    6.9 Call Generate Proof API  
-    6.10 check the balance of rootToken in Wallet in Geoerli
+5. Test Steps (deposit, withdraw)
+    5.1 Record current balance of rook Token, child token in Wallet
+    5.2 Root Token -> FxERC20RootTunnel(spender) in goerli 
+    5.3 deposit in FxERC20RootTunnel and wait 20 ~ 30mins
+    5.4 check if the balance of rook token is decreased 
+    5.5 check the balance of childToken in Wallet in Mumbai
+
+    5.6 Record current balance of rook Token, child token in Wallet
+    5.7 withdraw from FxERC20ChildTunnel
+    5.8 check if the balance of child token is decreased
+    5.9 Wait 30mins
+    5.10 Call Generate Proof API  
+    5.11 check the balance of rootToken in Wallet in Geoerli
     
 ======================== Deploy Ethereum <-> Polygon Bridge Steps ===========================================
-1. Deploy FXERC20
-    1.1 comment deploy_child
-    1.2 change NETWORK to 'Polygon' in utils.js
-    1.3 npm run matic:deploy
-    1.4 npm run matic:verify
-    1.5 save Deployed FXERC20's address
-    1.6 update mainnet's fxERC20, childToken in utils.js
-    1.7 Create Pair in uniswap factory on Polygon
-2. Deploy FxERC20RootTunnel to Ethereum
-    2.1 uncomment deploy_child
-    2.2 change NETWORK to Ethereum in utils.js
-    2.3 Prepare Root Token, Child Token's Name, Symbol, and Decimals
-    2.4 npm run mainnet:deploy
-    2.5 npm run mainnet:verify
-    2.6 save Deployed FxERC20RootTunnel's address   
-3. Deploy FxERC20ChildTunnel to Polygon
-    3.1 uncomment deploy_child
-    3.2 change NETWORK to Polygon in utils.js
-    3.3 npm run matic:deploy
-    3.4 npm run matic:verify
-    3.5 save Deployed FxERC20ChildTunnel's address
-    3.6 import child token on wallet in Mumbai Network
-4. Setup Bridge
-    4.1 update ChildTunnel of FxERC20RootTunnel in ethereum
-    4.2 update RootTunnel of FxERC20ChildTunnel in polygon
-5. Root Token -> FxERC20RootTunnel(spender) in ethereum 
-6. Test Steps
-    6.2 Record current balance of rook Token, child token
-    6.3 deposit in FxERC20RootTunnel
-    6.4 check if the balance of rook token is decreased
-    6.5 Wait some time and check the balance of childToken in Wallet in Polygon
+1. Deploy FxERC20RootTunnel to Ethereum
+    1.1 change NETWORK to Ethereum in utils.js
+    1.2 npm run mainnet:deploy
+    1.3 npm run mainnet:verify
+    1.4 save Deployed FxERC20RootTunnel's address    
+2. Deploy FXERC20 and FxERC20ChildTunnel to Polygon
+    2.1 change NETWORK to Polygon in utils.js
+    2.2 npm run matic:deploy
+    2.3 npm run matic:verify
+    2.4 save Deployed FxERC20ChildTunnel's address and FXERC20 address    
+3. Setup Bridge - (Please don't confuse, this is IMPORTANT step!!!!!)
+    3.1 update ChildTunnel of FxERC20RootTunnel in ethereum
+    3.2 update RootTunnel of FxERC20ChildTunnel in polygon
+4. Mapping Steps
+    4.1 Map Root Token / Child Token and wait ?? ~ ?? mins
+    4.2 Check FxERC20ChildTunnel's TokenMapped event in Polygon
+    4.3 import child token on wallet in Polygon Network
 
-    6.6 Record current balance of rook Token, child token
-    6.7 withdraw from FxERC20ChildTunnel
-    6.8 check if the balance of child token is decreased
-    6.9 Wait 30mins
-    6.10 Call Generate Proof API  
-    6.11 check the balance of rootToken in Wallet in Geoerli
-    
+5. Test Steps (deposit, withdraw)
+    5.1 Record current balance of rook Token, child token in Wallet
+    5.2 Root Token -> FxERC20RootTunnel(spender) in ethereum 
+    5.3 deposit in FxERC20RootTunnel and wait ?? ~ ?? mins
+    5.4 check if the balance of rook token is decreased in Ethereum
+    5.5 check the balance of childToken in Wallet in Polygon
+
+    5.6 Record current balance of rook Token, child token in Wallet
+    5.7 withdraw from FxERC20ChildTunnel
+    5.8 check if the balance of child token is decreased in Polygon
+    5.9 Wait ?? mins
+    5.10 Call Generate Proof API  
+    5.11 check the balance of rootToken in Wallet in Ethereum

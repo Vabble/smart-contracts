@@ -8,22 +8,10 @@ module.exports = async function ({ ethers, getNamedAccounts, deployments, getCha
 
   if(chainId == 137) {
     // Polygon Mainnet
-    this.fxChild = config.mainnet.fxChild;   
-    this.fxERC20Token = config.mainnet.fxERC20;
-    this.rootToken = config.mainnet.rootToken;
-    this.childToken = config.mainnet.childToken;
-    this.tokenName = config.mainnet.tokenName;
-    this.tokenSymbol = config.mainnet.tokenSymbol;
-    this.tokenDecimals = config.mainnet.tokenDecimals;  
+    this.fxChild = config.mainnet.fxChild;       
   } else if(chainId == 80001) {
     // Mumbai Testnet
-    this.fxChild = config.testnet.fxChild;    
-    this.fxERC20Token = config.testnet.fxERC20;
-    this.rootToken = config.testnet.rootToken;
-    this.childToken = config.testnet.childToken;
-    this.tokenName = config.testnet.tokenName;
-    this.tokenSymbol = config.testnet.tokenSymbol;
-    this.tokenDecimals = config.testnet.tokenDecimals;
+    this.fxChild = config.testnet.fxChild;       
   } else {
     return
   }
@@ -33,13 +21,7 @@ module.exports = async function ({ ethers, getNamedAccounts, deployments, getCha
   const deployContract = await deploy('FxERC20ChildTunnel', {
     from: deployer,
     args: [
-      this.fxChild, 
-      this.fxERC20Token,
-      this.rootToken,
-      this.childToken,
-      this.tokenName,
-      this.tokenSymbol,
-      this.tokenDecimals
+      this.fxChild
     ],
     log: true,
     deterministicDeployment: false,

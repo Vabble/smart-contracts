@@ -27,32 +27,26 @@ contract FxERC20RootTunnel is FxBaseRootTunnel, Create2 {
     );
 
     mapping(address => address) public rootToChildTokens;
-    bytes32 public immutable childTokenTemplateCodeHash;
-
+    mapping(address => address) public deployerMap;
+    
     address public deployer;
-
 
     constructor(
         address _checkpointManager,
-        address _fxRoot,
-        address _fxERC20Token,
-        address _rootToken,
-        address _childToken
+        address _fxRoot
     ) FxBaseRootTunnel(_checkpointManager, _fxRoot) {
-        // compute child token template code hash
-        childTokenTemplateCodeHash = keccak256(minimalProxyCreationCode(_fxERC20Token));
-        deployer = msg.sender;
-        rootToChildTokens[_rootToken] = _childToken;
+        // compute child token template code hash        
     }
 
     /**
      * @notice Map a token to enable its movement via the PoS Portal, callable by everyone
      * @param rootToken address of token on root chain
+     * @param childToken address of token on child chain
      */
-    function mapToken(address rootToken) public {
-        // check if token is already mapped
-        require(rootToChildTokens[rootToken] == address(0x0), "FxERC20RootTunnel: ALREADY_MAPPED_OK");
-
+    function mapToken(address rootToken, address childToken) public {
+        // check if token is already mapped or token requester
+        require(rootToChildTokens[rootToken] == address(0x0) || deployerMap[rootToken] == msg.sender, "FxERC20RootTunnel: ALREADY_MAPPED_OK");
+        
         // name, symbol and decimals
         ERC20 rootTokenContract = ERC20(rootToken);
         string memory name = rootTokenContract.name();
@@ -60,24 +54,20 @@ contract FxERC20RootTunnel is FxBaseRootTunnel, Create2 {
         uint8 decimals = rootTokenContract.decimals();
 
         // MAP_TOKEN, encode(rootToken, name, symbol, decimals)
-        bytes memory message = abi.encode(MAP_TOKEN, abi.encode(rootToken, name, symbol, decimals, deployer));
+        bytes memory message = abi.encode(MAP_TOKEN, abi.encode(rootToken, name, symbol, decimals, childToken, msg.sender));
         // slither-disable-next-line reentrancy-no-eth
         _sendMessageToChild(message);
 
-        // compute child token address before deployment using create2
-        bytes32 salt = keccak256(abi.encodePacked(rootToken));
-        address childToken = computedCreate2Address(salt, childTokenTemplateCodeHash, fxChildTunnel);
-
         // add into mapped tokens
         rootToChildTokens[rootToken] = childToken;
+        deployerMap[rootToken] = msg.sender;
+
         emit TokenMappedERC20(rootToken, childToken);
     }
 
     function deposit(address rootToken, address user, uint256 amount, bytes memory data) public {
         // map token if not mapped
-        if (rootToChildTokens[rootToken] == address(0x0)) {
-            mapToken(rootToken);
-        }
+        require(rootToChildTokens[rootToken] != address(0x0), "FxERC20RootTunnel: NOT MAPPED");
 
         // transfer from depositor to this contract
         IERC20(rootToken).safeTransferFrom(
