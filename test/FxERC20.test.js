@@ -11,6 +11,10 @@ describe('FxERC20', function () {
 
     this.signers = await ethers.getSigners();
     this.deployer = this.signers[0];    
+
+    this.customer1 = this.signers[5];
+    this.customer2 = this.signers[6];
+    this.customer3 = this.signers[7];
   });
 
   beforeEach(async function () {
@@ -43,6 +47,22 @@ describe('FxERC20', function () {
     totalSupply = await this.VabToken.totalSupply();
     expect(totalSupply).to.be.equal(supply);
 
+    await this.VabToken.connect(this.deployer).transfer(this.customer1.address, getBigNumber(1), {from: this.deployer.address});
+
+    let balance = await this.VabToken.balanceOf(this.deployer.address);
+    expect(balance).to.be.equal(getBigNumber(999999));
+
+    balance = await this.VabToken.balanceOf(this.customer1.address);
+    expect(balance).to.be.equal(getBigNumber(1));
+
+    totalSupply = await this.VabToken.totalSupply();
+    expect(totalSupply).to.be.equal(supply);
+
+    await this.VabToken.connect(this.customer1).transfer(this.deployer.address, getBigNumber(1), {from: this.customer1.address});
+
+    await this.VabToken.connect(this.deployer).destroy(totalSupply, { from: this.deployer.address });
+    totalSupply = await this.VabToken.totalSupply();
+    expect(totalSupply).to.be.equal(0);
 
   });
 });
