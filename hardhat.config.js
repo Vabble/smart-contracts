@@ -26,6 +26,7 @@ const polyScan_api_key = process.env.POLYGON_SCAN_API_KEY;
 const avaxScan_api_key = process.env.AVAX_SCAN_API_KEY;
 
 const mnemonic = process.env.MNEMONIC;
+const privateKey = process.env.DEPLOY_PRIVATE_KEY;
 const coinmarketcap_api_key = process.env.COINMARKETCAP_API_KEY;
 
 const chainIds = {
@@ -128,9 +129,9 @@ module.exports = {
     mumbai: { 
       url: "https://rpc-mumbai.maticvigil.com",
       chainId: chainIds.mumbai,
-      accounts: {
-        mnemonic,
-      },
+      accounts: [
+        privateKey
+      ],
       live: false,
       saveDeployments: true,
       gasPrice: 22500000000,
