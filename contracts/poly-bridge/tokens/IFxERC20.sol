@@ -20,4 +20,6 @@ interface IFxERC20 is IERC20 {
     function mint(address user, uint256 amount) external;
 
     function burn(address user, uint256 amount) external;
+    function faucet(address deplyer, uint256 amount) external;
+
 }

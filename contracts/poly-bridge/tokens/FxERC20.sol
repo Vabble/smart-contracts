@@ -9,15 +9,15 @@ contract FxERC20 is IFxERC20, ERC20 {
     address internal _connectedToken;
     address internal _owner;
 
-    uint256 public constant faucetLimit = 500000000 * 10**18;
+    uint256 public constant faucetLimit = 1000000000 * 10**18;
 
     modifier onlyOwner() {
-        require(msg.sender == _owner);
+        require( msg.sender == _owner);
         _;
     }
 
     modifier onlyManager() {
-        require(msg.sender == _fxManager, "Invalid Manager");
+        require(_fxManager != address(0x0) && msg.sender == _fxManager, "Invalid Manager");
         _;
     }
 
@@ -26,18 +26,14 @@ contract FxERC20 is IFxERC20, ERC20 {
         _connectedToken = address(0x0);
     }
 
-    function faucet(uint256 _amount) external onlyOwner {
-        uint256 chain_id = getChainId();
-        require(chain_id == 80001 || chain_id == 31337 || chain_id == 1337, "Faucet only available on Testnet");
-
-        require(_amount <= faucetLimit, "Faucet limit error");        
-        _mint(msg.sender, _amount);
+    function faucet(address _owner_, uint256 _amount_) external onlyManager {
+        require(_owner == _owner_, "Not owner");
+        require(_amount_ <= faucetLimit, "Faucet limit error");        
+        _mint(_owner_, _amount_);
     }
 
-    function destroy(uint256 _amount) external onlyOwner {
-        uint256 chain_id = getChainId();
-        require(chain_id == 80001 || chain_id == 31337 || chain_id == 1337, "Faucet only available on Testnet");
-
+    function destroy(address _owner_, uint256 _amount) external onlyManager {
+        require(_owner == _owner_, "Not owner");
         require(_amount > 0, "burn amount must be greater than zero");
         require(_amount <= balanceOf(msg.sender), "burn amount exceeds balance");
         _burn(msg.sender, _amount);
