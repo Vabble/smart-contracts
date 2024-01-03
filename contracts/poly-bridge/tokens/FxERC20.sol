@@ -26,19 +26,6 @@ contract FxERC20 is IFxERC20, ERC20 {
         _connectedToken = address(0x0);
     }
 
-    function faucet(address _owner_, uint256 _amount_) external onlyManager {
-        require(_owner == _owner_, "Not owner");
-        require(_amount_ <= faucetLimit, "Faucet limit error");        
-        _mint(_owner_, _amount_);
-    }
-
-    function destroy(address _owner_, uint256 _amount) external onlyManager {
-        require(_owner == _owner_, "Not owner");
-        require(_amount > 0, "burn amount must be greater than zero");
-        require(_amount <= balanceOf(msg.sender), "burn amount exceeds balance");
-        _burn(msg.sender, _amount);
-    }
-
     function initialize(
         address owner_,
         address fxManager_,

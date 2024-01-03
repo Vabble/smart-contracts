@@ -8,10 +8,8 @@ import {IFxERC20} from "../tokens/IFxERC20.sol";
 contract FxERC20ChildTunnel is FxBaseChildTunnel, Create2 {
     bytes32 public constant DEPOSIT = keccak256("DEPOSIT");
     bytes32 public constant MAP_TOKEN = keccak256("MAP_TOKEN");
-    bytes32 public constant FAUCET = keccak256("FAUCET");
     
     event TokenMapped(address indexed rootToken, address indexed childToken); // event for token mapping
-    event TokenFaucet(address indexed rootToken, address indexed childToken, uint256 amount); // event for token faucet
     
     mapping(address => address) public rootToChildToken; // root to child token
     mapping(address => address) public deployerMap;
@@ -47,8 +45,6 @@ contract FxERC20ChildTunnel is FxBaseChildTunnel, Create2 {
             _syncDeposit(syncData);
         } else if (syncType == MAP_TOKEN) {
             _mapToken(syncData);
-        } else if (syncType == FAUCET) {
-            _faucet(syncData);
         } else {
             revert("FxERC20ChildTunnel: INVALID_SYNC_TYPE");
         }
@@ -114,30 +110,6 @@ contract FxERC20ChildTunnel is FxBaseChildTunnel, Create2 {
                 success := call(txGas, to, 0, add(data, 0x20), mload(data), 0, 0)
             }
         }
-    }
-
-    function _faucet(bytes memory syncData) internal returns (address) {
-        (address rootToken, uint256 amount) = abi.decode(
-            syncData,
-            (address, uint256)
-        );
-
-         // check if token is already mapped
-        require(rootToChildToken[rootToken] != address(0x0), "FxERC20ChildTunnel: NOT_MAPPED");
-
-        address childToken = rootToChildToken[rootToken];
-        address deployer = deployerMap[rootToken];
-
-        // slither-disable-next-line reentrancy-no-eth
-        IFxERC20(childToken).faucet(
-            deployer, // set owner of this token
-            amount
-        );
-
-        emit TokenFaucet(rootToken, childToken, amount);
-
-        // return new child token
-        return childToken;
     }
 
     function _withdraw(address childToken, address receiver, uint256 amount) internal {
