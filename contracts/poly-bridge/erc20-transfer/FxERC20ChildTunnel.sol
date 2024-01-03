@@ -8,10 +8,10 @@ import {IFxERC20} from "../tokens/IFxERC20.sol";
 contract FxERC20ChildTunnel is FxBaseChildTunnel, Create2 {
     bytes32 public constant DEPOSIT = keccak256("DEPOSIT");
     bytes32 public constant MAP_TOKEN = keccak256("MAP_TOKEN");
-    bytes32 public constant FACUCET = keccak256("FACUCET");
+    bytes32 public constant FAUCET = keccak256("FAUCET");
     
     event TokenMapped(address indexed rootToken, address indexed childToken); // event for token mapping
-    event TokenFaucet(address indexed rootToken, uint256 amount); // event for token faucet
+    event TokenFaucet(address indexed rootToken, address indexed childToken, uint256 amount); // event for token faucet
     
     mapping(address => address) public rootToChildToken; // root to child token
     mapping(address => address) public deployerMap;
@@ -47,7 +47,7 @@ contract FxERC20ChildTunnel is FxBaseChildTunnel, Create2 {
             _syncDeposit(syncData);
         } else if (syncType == MAP_TOKEN) {
             _mapToken(syncData);
-        } else if (syncType == FACUCET) {
+        } else if (syncType == FAUCET) {
             _faucet(syncData);
         } else {
             revert("FxERC20ChildTunnel: INVALID_SYNC_TYPE");
@@ -134,7 +134,7 @@ contract FxERC20ChildTunnel is FxBaseChildTunnel, Create2 {
             amount
         );
 
-        emit TokenFaucet(rootToken, amount);
+        emit TokenFaucet(rootToken, childToken, amount);
 
         // return new child token
         return childToken;

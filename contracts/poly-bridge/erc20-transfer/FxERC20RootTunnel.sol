@@ -11,7 +11,7 @@ contract FxERC20RootTunnel is FxBaseRootTunnel, Create2 {
     // maybe DEPOSIT and MAP_TOKEN can be reduced to bytes4
     bytes32 public constant DEPOSIT = keccak256("DEPOSIT");
     bytes32 public constant MAP_TOKEN = keccak256("MAP_TOKEN");
-    bytes32 public constant FACUCET = keccak256("FACUCET");
+    bytes32 public constant FAUCET = keccak256("FAUCET");
     uint256 public constant faucetLimit = 1000000000 * 10**18;
 
 
@@ -29,7 +29,7 @@ contract FxERC20RootTunnel is FxBaseRootTunnel, Create2 {
         uint256 amount
     );
 
-    event FxBurnERC20(
+    event FxFaucetERC20(
         address indexed rootToken,
         uint256 amount
     );
@@ -95,10 +95,10 @@ contract FxERC20RootTunnel is FxBaseRootTunnel, Create2 {
         require(rootToChildTokens[rootToken] != address(0x0), "FxERC20RootTunnel: NOT MAPPED");
         require(deployerMap[rootToken] == msg.sender, "FxERC20RootTunnel: THIS IS NOT DEPLOYER OF THIS TOKEN");
 
-        // FACUCET, encode(rootToken, amount)
-        bytes memory message = abi.encode(FACUCET, abi.encode(rootToken, amount));
+        // FAUCET, encode(rootToken, amount)
+        bytes memory message = abi.encode(FAUCET, abi.encode(rootToken, amount));
         _sendMessageToChild(message);
-        emit FxBurnERC20(rootToken, amount);
+        emit FxFaucetERC20(rootToken, amount);
     }
 
     // exit processor
