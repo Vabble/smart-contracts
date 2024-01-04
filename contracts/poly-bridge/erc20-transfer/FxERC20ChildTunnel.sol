@@ -8,18 +8,14 @@ import {IFxERC20} from "../tokens/IFxERC20.sol";
 contract FxERC20ChildTunnel is FxBaseChildTunnel, Create2 {
     bytes32 public constant DEPOSIT = keccak256("DEPOSIT");
     bytes32 public constant MAP_TOKEN = keccak256("MAP_TOKEN");
-    
+
     event TokenMapped(address indexed rootToken, address indexed childToken); // event for token mapping
-    
+
     mapping(address => address) public rootToChildToken; // root to child token
     mapping(address => address) public deployerMap;
-    
+
     // slither-disable-next-line missing-zero-check
-    constructor(
-        address _fxChild
-    ) FxBaseChildTunnel(_fxChild) {
-        
-    }
+    constructor(address _fxChild) FxBaseChildTunnel(_fxChild) {}
 
     function withdraw(address childToken, uint256 amount) public {
         _withdraw(childToken, msg.sender, amount);
@@ -51,18 +47,18 @@ contract FxERC20ChildTunnel is FxBaseChildTunnel, Create2 {
     }
 
     function _mapToken(bytes memory syncData) internal returns (address) {
-        (address rootToken, string memory name, string memory symbol, uint8 decimals, address childToken, address deployer) = abi.decode(
-            syncData,
-            (address, string, string, uint8, address, address)
-        );
+        (address rootToken, string memory name, string memory symbol, uint8 decimals, address childToken, address deployer) = abi
+            .decode(syncData, (address, string, string, uint8, address, address));
 
         // check if it's already mapped
-        require(rootToChildToken[rootToken] == address(0x0) || deployerMap[rootToken] == deployer, "FxERC20ChildTunnel: ALREADY_MAPPED");
+        require(
+            rootToChildToken[rootToken] == address(0x0) || deployerMap[rootToken] == deployer,
+            "FxERC20ChildTunnel: ALREADY_MAPPED"
+        );
 
         // slither-disable-next-line reentrancy-no-eth
         IFxERC20(childToken).initialize(
-            deployer, // set owner of this token
-            address(this),            
+            address(this),
             rootToken,
             // string(abi.encodePacked(name, SUFFIX_NAME)),
             // string(abi.encodePacked(PREFIX_SYMBOL, symbol)),
@@ -74,7 +70,7 @@ contract FxERC20ChildTunnel is FxBaseChildTunnel, Create2 {
         // map the token
         rootToChildToken[rootToken] = childToken;
         deployerMap[rootToken] = deployer;
-        
+
         emit TokenMapped(rootToken, childToken);
 
         // return new child token
