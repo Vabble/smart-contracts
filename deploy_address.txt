@@ -76,6 +76,15 @@ child token: 0x5d4b0763f3e8Db081Ed6aBbF0b05B2cb009bfAE6  // mumbai
 
 Auditor wallet address: 0xb10bcC8B508174c761CFB1E7143bFE37c4fBC3a1
 
+=> 2023-01-04
+FxERC20RootTunnel (0x9AA7DE3fd4984a2799881355933b49AF823C3e4F)  // goerli
+FxERC20ChildTunnel (0x001CfbFE03C67d206e6ba8A2505907be0DA584F7) // mumbai
+
+root token: 0x482a493EA47903a571b20E35B770aFfE06600a3D // goerli
+child token: 0x3DF7B6C3a2bFA7Fae515E1B813Dc57f12618C62E  // mumbai
+
+Auditor wallet address: 0xb10bcC8B508174c761CFB1E7143bFE37c4fBC3a1
+
 => Generate Proof API                
 https://proof-generator.polygon.technology/api/v1/mumbai/exit-payload/withdraw-tx-hash?eventSignature=SEND_MESSAGE_EVENT_SIG
 https://proof-generator.polygon.technology/api/v1/matic/exit-payload/withdraw-tx-hash?eventSignature=SEND_MESSAGE_EVENT_SIG

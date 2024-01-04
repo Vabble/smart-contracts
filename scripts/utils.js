@@ -2,9 +2,9 @@ const ethers = require('ethers');
 const { BigNumber } = ethers;
 
 // const NETWORK = 'Ethereum';
-// const NETWORK = 'Goerli';
+const NETWORK = 'Goerli';
 // const NETWORK = 'Polygon';
-const NETWORK = 'Mumbai';
+// const NETWORK = 'Mumbai';
 
 const ZERO_ADDRESS = ethers.constants.AddressZero;
 const CONFIG = {
@@ -19,8 +19,8 @@ const config = {
     checkpointManager: "0x86E4Dc95c7FBdBf52e33D563BbDB00823894C287",
   },
   testnet: {
-    fxRoot: "0xFF408f17800d0cAd044CD9F9af330C549113C161", // goerli
-    fxChild: "0x6A82dc2b16b876c4e1E24927E9982a323850a48b", // mumbai
+    fxRoot: "0x3d1d3E34f7fB6D26245E6640E1c50710eFFf15bA", // goerli
+    fxChild: "0xCf73231F28B7331BBe3124B907840A94851f9f11", // mumbai
     checkpointManager: "0x2890bA17EfE978480615e330ecB65333b880928e", // goerli    
   }
 }
