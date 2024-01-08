@@ -85,6 +85,13 @@ child token: 0x3DF7B6C3a2bFA7Fae515E1B813Dc57f12618C62E  // mumbai
 
 Auditor wallet address: 0xb10bcC8B508174c761CFB1E7143bFE37c4fBC3a1
 
+=> 2024-01-06
+FxERC20RootTunnel (0x659c7F7f6568Ddb3DEE782bb8ec2123BC89D8433)  // Mainnet
+FxERC20ChildTunnel (0x934D81AD5F19e1f8BD8e2cf427849d0C8F95427C) // Polygon
+
+root token: 0xe7aE6D0C56CACaf007b7e4d312f9af686a9E9a04 // Mainnet
+child token: 0xEa73Dcf6F49f8d6aD5a129aaedE776d78d418CFD  // Polygon
+
 => Generate Proof API                
 https://proof-generator.polygon.technology/api/v1/mumbai/exit-payload/withdraw-tx-hash?eventSignature=SEND_MESSAGE_EVENT_SIG
 https://proof-generator.polygon.technology/api/v1/matic/exit-payload/withdraw-tx-hash?eventSignature=SEND_MESSAGE_EVENT_SIG
