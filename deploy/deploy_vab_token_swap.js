@@ -4,8 +4,13 @@ module.exports = async function ({ ethers, getNamedAccounts, deployments, getCha
 
   const { CONFIG } = require('../scripts/utils');
 
-  return
-  
+  const network = await ethers.provider.getNetwork();
+  const chainId = network.chainId;
+
+  if (chainId == 1 || chainId == 5) { // ethereum or goerli
+    return
+  }
+
   const deployContract = await deploy('VABTokenSwap', {
     from: deployer,
     args: [

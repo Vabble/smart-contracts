@@ -2,14 +2,14 @@ const ethers = require('ethers');
 const { BigNumber } = ethers;
 
 // const NETWORK = 'Ethereum';
-const NETWORK = 'Goerli';
-// const NETWORK = 'Polygon';
+// const NETWORK = 'Goerli';
+const NETWORK = 'Polygon';
 // const NETWORK = 'Mumbai';
 
 const ZERO_ADDRESS = ethers.constants.AddressZero;
 const CONFIG = {
-  oldVAB: "0xed28b1890fbb4aa9ded528c1034fed278ff68f5d",
-  newVAB: "0xf27BeDc0C8a29DF0c4F91493EBa24814fF04D504",
+  oldVAB: "0xf27BeDc0C8a29DF0c4F91493EBa24814fF04D504",
+  newVAB: "0xEa73Dcf6F49f8d6aD5a129aaedE776d78d418CFD",
 };
 
 const config = {
