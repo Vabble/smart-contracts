@@ -1,44 +1,45 @@
 {
-  "name": "vab-swap",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "clean": "hardhat clean",
-    "compile": "npx hardhat compile",
-    "test": "hardhat test test/main.test.js --network hardhat",
-    "test:mumbai": "hardhat test test/main.test.js --network mumbai",
-    "mainnet:deploy": "hardhat --network mainnet deploy",
-    "mainnet:verify": "hardhat --network mainnet etherscan-verify --solc-input",
-    "matic:deploy": "hardhat --network matic deploy",
-    "matic:verify": "hardhat --network matic etherscan-verify --solc-input",
-    "mumbai:deploy": "hardhat --network mumbai deploy",
-    "mumbai:verify": "hardhat --network mumbai etherscan-verify --solc-input",
-    "goerli:deploy": "hardhat --network goerli deploy",
-    "goerli:verify": "hardhat --network goerli etherscan-verify --solc-input",
-    "prettier": "prettier --write scripts/**/*.js && prettier --write test/**/*.js && prettier --write contracts/**/*.sol"
-  },
-  "keywords": [],
-  "author": "Vabble",
-  "license": "MIT",
-  "devDependencies": {
-    "@nomicfoundation/hardhat-verify": "^2.0.7",
-    "@nomiclabs/hardhat-ethers": "^2.0.0",
-    "@nomiclabs/hardhat-waffle": "^2.0.1",
-    "@openzeppelin/contracts": "4.8.1",
-    "chai": "^4.3.4",
-    "dotenv": "^10.0.0",
-    "ethereum-waffle": "^3.4.0",
-    "ethers": "^5.4.1",
-    "hardhat": "^2.19.4",
-    "hardhat-contract-sizer": "^2.0.3",
-    "hardhat-deploy": "^0.11.45",
-    "hardhat-deploy-ethers": "^0.3.0-beta.13",
-    "hardhat-gas-reporter": "^1.0.8",
-    "prettier": "^2.3.2",
-    "prettier-plugin-solidity": "^1.0.0-beta.16"
-  },
-  "dependencies": {
-    "stacktrace-parser": "^0.1.10"
-  }
+	"name": "vab-swap",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"clean": "hardhat clean",
+		"compile": "npx hardhat compile",
+		"test": "hardhat test test/main.test.js --network hardhat",
+		"test:mumbai": "hardhat test test/main.test.js --network mumbai",
+		"mainnet:deploy": "hardhat --network mainnet deploy",
+		"mainnet:verify": "hardhat --network mainnet etherscan-verify --solc-input",
+		"matic:deploy": "hardhat --network matic deploy",
+		"matic:verify": "hardhat --network matic etherscan-verify --solc-input",
+		"mumbai:deploy": "hardhat --network mumbai deploy",
+		"mumbai:verify": "hardhat --network mumbai etherscan-verify --solc-input",
+		"goerli:deploy": "hardhat --network goerli deploy",
+		"goerli:verify": "hardhat --network goerli etherscan-verify --solc-input",
+		"prettier": "prettier --write scripts/**/*.js && prettier --write test/**/*.js && prettier --write contracts/**/*.sol"
+	},
+	"keywords": [],
+	"author": "Vabble",
+	"license": "MIT",
+	"devDependencies": {
+		"@nomicfoundation/hardhat-verify": "^2.0.7",
+		"@nomiclabs/hardhat-ethers": "^2.0.0",
+		"@nomiclabs/hardhat-waffle": "^2.0.1",
+		"@openzeppelin/contracts": "4.8.1",
+		"chai": "^4.3.4",
+		"dotenv": "^10.0.0",
+		"ethereum-waffle": "^3.4.0",
+		"ethers": "^5.4.1",
+		"hardhat": "^2.19.4",
+		"hardhat-contract-sizer": "^2.0.3",
+		"hardhat-deploy": "^0.11.45",
+		"hardhat-deploy-ethers": "^0.3.0-beta.13",
+		"hardhat-gas-reporter": "^1.0.8",
+		"prettier": "^2.3.2",
+		"prettier-plugin-solidity": "^1.0.0-beta.16"
+	},
+	"dependencies": {
+		"@nomicfoundation/hardhat-ledger": "^1.0.3",
+		"stacktrace-parser": "^0.1.10"
+	}
 }
