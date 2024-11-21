@@ -77,6 +77,11 @@ module.exports = {
 			tags: ["staging"],
 			gasPrice: 5000000000,
 			gasMultiplier: 2,
+			timeout: 60000,
+			pollingInterval: 5000,
+			ledgerAccounts: [
+				"0x83deA1F8DE4865B7234c7FE4fe247abc14005c19",
+			],
 		},
 		baseSepolia: {
 			url: `https://base-sepolia.g.alchemy.com/v2/${alchemy_key}`,
