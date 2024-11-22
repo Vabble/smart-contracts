@@ -70,13 +70,11 @@ module.exports = {
 			saveDeployments: true,
 		},
 		base: {
-			url: `https://base-mainnet.g.alchemy.com/v2/${alchemy_key}`,
+			url: `https://mainnet.base.org`,
 			chainId: chainIds.base,
 			live: false,
 			saveDeployments: true,
 			tags: ["staging"],
-			gasPrice: 5000000000,
-			gasMultiplier: 2,
 			timeout: 60000,
 			pollingInterval: 5000,
 			ledgerAccounts: [
@@ -89,8 +87,6 @@ module.exports = {
 			live: false,
 			saveDeployments: true,
 			tags: ["staging"],
-			gasPrice: 5000000000,
-			gasMultiplier: 2,
 			timeout: 60000,
 			pollingInterval: 5000,
 			ledgerAccounts: [
