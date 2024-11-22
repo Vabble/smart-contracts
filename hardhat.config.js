@@ -1,19 +1,17 @@
 const { utils } = require("ethers");
-
 require("@nomiclabs/hardhat-waffle");
 require("hardhat-deploy");
 require("hardhat-deploy-ethers");
 require("@nomicfoundation/hardhat-verify");
+require("@nomicfoundation/hardhat-ledger");
 require("hardhat-contract-sizer");
-require("hardhat-gas-reporter")
+require("hardhat-gas-reporter");
 require('dotenv').config();
-
 
 const { NETWORK } = require('./scripts/utils');
 
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 	const accounts = await hre.ethers.getSigners();
-
 	for (const account of accounts) {
 		console.log(account.address);
 	}
@@ -22,9 +20,6 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 const alchemy_key = process.env.ALCHEMY_KEY;
 const etherScan_api_key = process.env.ETHER_SCAN_API_KEY;
 const baseScan_api_key = process.env.BASE_SCAN_API_KEY;
-
-const mnemonic = process.env.MNEMONIC;
-const privateKey = process.env.DEPLOY_PRIVATE_KEY;
 const coinmarketcap_api_key = process.env.COINMARKETCAP_API_KEY;
 
 const chainIds = {
@@ -36,8 +31,8 @@ const chainIds = {
 	ganache: 1337,		// For Development
 	hardhat: 31337,		// For Development
 };
-if (!mnemonic || !alchemy_key) {
-	throw new Error("Please set your data in a .env file");
+if (!alchemy_key) {
+	throw new Error("Please set your ALCHEMY_KEY in the .env file");
 }
 
 module.exports = {
@@ -61,70 +56,52 @@ module.exports = {
 			chainId: chainIds.mumbai,
 			saveDeployments: true,
 			forking: {
-				// url: `https://eth-goerli.alchemyapi.io/v2/${alchemy_key}`,
-				// blockNumber: 11328709,
 				url: `https://polygon-mumbai.g.alchemy.com/v2/${alchemy_key}`
 			},
-			accounts: [{
-				privateKey: privateKey,
-				balance: '10000000000000000000000',  // 
-			}],
-			// gasPrice: 22500000000,
+			accounts: {
+				mnemonic: "test test test test test test test test test test test junk",
+			},
 			gasMultiplier: 2,
-			// throwOnTransactionFailures: true,
-			// blockGasLimit: 1245000000 
 		},
-		// Ethereum mainnet
 		mainnet: {
 			url: `https://eth-mainnet.alchemyapi.io/v2/${alchemy_key}`,
-			accounts: [
-				privateKey
-			],
 			chainId: chainIds.mainnet,
 			live: false,
-			saveDeployments: true
+			saveDeployments: true,
 		},
-		// Base testnet (Sepolia)
 		base: {
-			url: `https://base-mainnet.g.alchemy.com/v2/${alchemy_key}`,
-			accounts: [
-				privateKey
-			],
+			url: `https://mainnet.base.org`,
 			chainId: chainIds.base,
 			live: false,
 			saveDeployments: true,
 			tags: ["staging"],
-			gasPrice: 5000000000,
-			gasMultiplier: 2,
+			timeout: 60000,
+			pollingInterval: 5000,
+			ledgerAccounts: [
+				"0x83deA1F8DE4865B7234c7FE4fe247abc14005c19",
+			],
 		},
-		// Base testnet (Sepolia)
 		baseSepolia: {
 			url: `https://base-sepolia.g.alchemy.com/v2/${alchemy_key}`,
-			accounts: [
-				privateKey
-			],
 			chainId: chainIds.baseSepolia,
 			live: false,
 			saveDeployments: true,
 			tags: ["staging"],
-			gasPrice: 5000000000,
-			gasMultiplier: 2,
+			timeout: 60000,
+			pollingInterval: 5000,
+			ledgerAccounts: [
+				"0x83deA1F8DE4865B7234c7FE4fe247abc14005c19",
+			],
 		},
-		// Polygon mainnet
 		matic: {
 			url: "https://polygon-rpc.com",
 			chainId: chainIds.matic,
-			accounts: [
-				privateKey
-			],
 			live: true,
-			saveDeployments: true
+			saveDeployments: true,
 		},
 	},
 	etherscan: {
 		apiKey: baseScan_api_key
-		// apiKey: etherScan_api_key
-		// apiKey: baseScan_api_key
 	},
 	paths: {
 		deploy: "deploy",
@@ -156,5 +133,8 @@ module.exports = {
 				},
 			},
 		],
+	},
+	sourcify: {
+		enabled: false
 	}
 };
